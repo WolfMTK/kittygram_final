@@ -1,51 +1,31 @@
-### Как запустить проект:
+### Запуск backend-сервера
 
-Клонировать репозиторий и перейти в него в командной строке:
+1. Создать виртуальное окружение:
 
-```
-git clone https://github.com/yandex-praktikum/kittygram_backend.git
-```
+    a. Linux/macOS:
 
-```
-cd kittygram_backend
-```
+    `python3 -m venv venv`
 
-Cоздать и активировать виртуальное окружение:
+    `. /venv/bin/activate`
 
-```
-python3 -m venv env
-```
+    б. Windows:
 
-* Если у вас Linux/macOS
+    `py -m venv venve`
 
-    ```
-    source env/bin/activate
-    ```
+    `source venv/Scripts/activate`
 
-* Если у вас windows
+2. Установить необходимые зависимости: `pip install -r requirements.txt`
 
-    ```
-    source env/scripts/activate
-    ```
+3. Выполнить миграции: `python manage.py migrate`
 
-```
-python3 -m pip install --upgrade pip
-```
+4. Запустить проект: `python manage.py runserver`
 
-Установить зависимости из файла requirements.txt:
+### Запуск backend-сервера в docker-контейнере
 
-```
-pip install -r requirements.txt
-```
+1. Установить docker: [документация по docker](https://docs.docker.com/engine/install/)
 
-Выполнить миграции:
+2. Собрать образ бэкенда (для linux от `sudo` вводить команды):
 
-```
-python3 manage.py migrate
-```
+`docker build -t kittygram_backend .`
 
-Запустить проект:
-
-```
-python3 manage.py runserver
-```
+`docker run --name kittygram_backend_container --rm -p 9000:9000 kittygram_backend`

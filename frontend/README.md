@@ -1,23 +1,15 @@
-### Как запустить проект:
+### Запуск frontend-сервера:
 
-Клонировать репозиторий и перейти в него в командной строке:
+1. Установить зависимости: `npm i`
 
-```
-git clone https://github.com/yandex-praktikum/kittygram_frontend.git
-```
+2. Запустить проект: `npm run start`
 
-```
-cd kittygram_frontend
-```
+### Запуск frontend-сервера в docker-контейнере
 
-Установить зависимости:
+1. Установить docker: [документация по docker](https://docs.docker.com/engine/install/)
 
-```
-npm i
-```
+2. Собрать образ бэкенда (для linux от `sudo` вводить команды):
 
-Запустить проект:
+`docker build -t kittygram_frontend .`
 
-```
-npm run start
-```
+`docker run --name kittygram_frontend_container --rm -p 9000:9000 kittygram_frontend`
