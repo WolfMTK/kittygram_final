@@ -1,26 +1,45 @@
-#  Как работать с репозиторием финального задания
+# Kittygram
 
-## Что нужно сделать
+### Запуск backend-сервера
 
-Настроить запуск проекта Kittygram в контейнерах и CI/CD с помощью GitHub Actions
+Полное описание: [запуск backend-сервера](https://github.com/WolfMTK/kittygram_final/blob/main/backend/README.md)
 
-## Как проверить работу с помощью автотестов
+### Запуск frontend-сервера
 
-В корне репозитория создайте файл tests.yml со следующим содержимым:
-```yaml
-repo_owner: ваш_логин_на_гитхабе
-kittygram_domain: полная ссылка (https://доменное_имя) на ваш проект Kittygram
-taski_domain: полная ссылка (https://доменное_имя) на ваш проект Taski
-dockerhub_username: ваш_логин_на_докерхабе
-```
+Полное описание: [запуск frontend-сервера](https://github.com/WolfMTK/kittygram_final/blob/main/frontend/README.md)
 
-Скопируйте содержимое файла `.github/workflows/main.yml` в файл `kittygram_workflow.yml` в корневой директории проекта.
+### Запуск nginx
 
-Для локального запуска тестов создайте виртуальное окружение, установите в него зависимости из backend/requirements.txt и запустите в корневой директории проекта `pytest`.
+1. Установить docker: [документация по docker](https://docs.docker.com/engine/install/)
 
-## Чек-лист для проверки перед отправкой задания
+2. Собрать образ бэкенда (для linux от `sudo` вводить команды):
 
-- Проект Taski доступен по доменному имени, указанному в `tests.yml`.
-- Проект Kittygram доступен по доменному имени, указанному в `tests.yml`.
-- Пуш в ветку main запускает тестирование и деплой Kittygram, а после успешного деплоя вам приходит сообщение в телеграм.
-- В корне проекта есть файл `kittygram_workflow.yml`.
+`docker build -t kittygram_gunicorn .`
+
+`docker run --name kittygram_gunicorn_container --rm -p 9000:9000 kittygram_gunicorn`
+
+### Запуск проекта
+
+1. Запустите Docker Compose (для linux от `sudo` вводить команды): `docker compose -f docker-compose.production.yml up`
+
+2. Сделать необходимые миграции (для linux от `sudo` вводить команды):
+
+`docker compose -f docker-compose.production.yml exec backend python manage.py migrate`
+
+3. Собрать статику (для linux от `sudo` вводить команды):
+
+`docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic`
+
+`docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/`
+
+4. Проверить, что страница заработала:
+
+`http://localhost:9000/`
+
+`http://localhost:9000/api/`
+
+`http://localhost:9000/admin/`
+
+### Пример .env файла
+
+Пример файла .env: [.env.example](https://github.com/WolfMTK/kittygram_final/blob/main/.env.example)
