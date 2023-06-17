@@ -1,0 +1,7 @@
+.env
+venv
+*/venv
+env
+*/env
+static
+static_*
