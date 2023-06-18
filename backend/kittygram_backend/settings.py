@@ -5,7 +5,6 @@ from distutils.util import strtobool
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = os.getenv('SECRET_KEY', 'secret_key_django')
 
 DEBUG = bool(strtobool(os.getenv('DEBUG', 'False')))
@@ -95,7 +94,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 STATIC_URL = '/static/'
 
