@@ -1,13 +1,12 @@
 # flake8: noqa
 import os
 from pathlib import Path
-from distutils.util import strtobool
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'secret_key_django')
 
-DEBUG = bool(strtobool(os.getenv('DEBUG', 'False')))
+DEBUG = False if 'False' in os.getenv('DEBUG', 'False').title() else True
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1 localhost').split(' ')
 
